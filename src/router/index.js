@@ -3,6 +3,9 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login'
 import Register from '../views/Register'
+import HostQuiz from '../views/quiz/HostQuiz'
+import JoinQuiz from '../views/quiz/JoinQuiz'
+import Quiz from '../views/quiz/Quiz'
 import * as auth from '../services/AuthService';
 
 
@@ -12,9 +15,38 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
-    beforeEnter: (to, from, next) =>{
-      if (auth.isLoggedIn()){
+    component: Home
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
+    beforeEnter: (to, from, next) => {
+      if (!auth.isLoggedIn()) {
+        next();
+      } else {
+        next('/');
+      }
+    }
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register,
+    beforeEnter: (to, from, next) => {
+      if (!auth.isLoggedIn()) {
+        next();
+      } else {
+        next('/');
+      }
+    }
+  },
+  {
+    path: '/host',
+    name: 'Host',
+    component: HostQuiz,
+    beforeEnter: (to, from, next) => {
+      if (auth.isLoggedIn()) {
         next();
       } else {
         next('/login');
@@ -22,14 +54,44 @@ const routes = [
     }
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: Login
+    path: '/join',
+    name: 'Join',
+    component: JoinQuiz,
+    beforeEnter: (to, from, next) => {
+      if (auth.isLoggedIn()) {
+        next();
+      } else {
+        next('/login');
+      }
+    }
   },
   {
-    path: '/register',
-    name: 'Register',
-    component: Register
+    path: '/join/:code',
+    name: 'JoinCode',
+    component: JoinQuiz,
+    beforeEnter: (to, from, next) => {
+      if (auth.isLoggedIn()) {
+        next();
+      } else {
+        next('/login');
+      }
+    }
+  },
+  {
+    path: '/quiz/:code',
+    name: 'Quiz',
+    component: Quiz,
+    beforeEnter: (to, from, next) => {
+      if (auth.isLoggedIn()) {
+        next();
+      } else {
+        next('/login');
+      }
+    }
+  },
+  {
+    path: '/quiz',
+    redirect: '/join'
   },
   {
     path: '/:pathMatch(.*)*',
@@ -42,6 +104,6 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   linkActiveClass: 'active',
   routes
-})
+});
 
 export default router

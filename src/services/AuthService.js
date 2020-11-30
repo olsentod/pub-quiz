@@ -1,38 +1,45 @@
 import store from '../store';
 import { http } from './HttpService';
+import { showError } from '../services/ErrorService';
 import jwt from 'jsonwebtoken';
 
 export function isLoggedIn() {
-    const token = localStorage.getItem('token');
+    const token = decodeToken();
     return token != null;
 }
 
 export async function login(user) {
-    const res = await http().post('/auth', user);
-    if(res){
+    try {
+        const res = await http().post('/auth', user);
         setToken(res.data.token);
+        return true;
+    } catch (error) {
+        if (error.response.status == 401) {
+            showError({ message: "Incorrect Email/Password Combination" });
+        }
+        return false;
     }
-    return res;
 }
 
-export function logout(){
+export function logout() {
     localStorage.clear();
     store.dispatch('authenticate');
 }
 
 
 function setToken(token) {
+    if (!token) return;
     localStorage.setItem('token', token);
     store.dispatch('authenticate');
 }
 
-export function getToken(){
+export function getToken() {
     return localStorage.getItem('token');
 }
 
 export function getUserName() {
     const token = decodeToken();
-    if(!token){
+    if (!token) {
         return null;
     }
     console.log(token);
@@ -41,19 +48,27 @@ export function getUserName() {
 
 export function getUserId() {
     const token = decodeToken();
-    if(!token){
+    if (!token) {
         return null;
     }
     return token.user.id;
 }
 
-export function registerUser(user){
-    return http().post('/register', user);
+export async function registerUser(user) {
+    try {
+        await http().post('/register', user);
+        return true;
+    } catch (error) {
+        if (error.response.status == 403) {
+            showError({ message: "Email already taken" });
+        }
+        return false;
+    }
 }
 
-function decodeToken(){
+function decodeToken() {
     const token = getToken();
-    if(!token){
+    if (!token) {
         return null;
     }
     return jwt.decode(token);

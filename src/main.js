@@ -8,6 +8,7 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
+  // socket,
   store,
   vuetify,
   render: h => h(App)

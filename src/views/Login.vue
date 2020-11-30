@@ -1,9 +1,9 @@
 <template>
   <v-layout class="justify-center py-10">
-    <v-card class="rounded-xl py-4  " max-width="400" width="100%">
+    <v-card class="rounded-xl py-4" max-width="400" width="100%">
       <v-card-title class="justify-center">LOGIN</v-card-title>
       <v-card-text>
-        <v-form @submit.prevent="onSubmit">
+        <v-form v-model="validForm" @submit.prevent="onSubmit">
           <v-row>
             <v-col cols="12">
               <v-text-field
@@ -44,12 +44,13 @@ export default {
   data() {
     return {
       passwordShow: true,
+      validForm: false,
       user: {
         email: '',
         password: ''
       },
       rules: {
-        required: (value) => !!value || "Required.",
+        required: (v) => !!v || "Required.",
         min: (v) => v.length >= 8 || "Min 8 characters",
         email: (v) => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -59,9 +60,12 @@ export default {
     };
   },
   methods: {
-    onSubmit() {
-      auth.login(this.user);
-      this.$router.push({ name: "home" });
+    async onSubmit() {
+      if(!this.validForm) return;
+
+      if(await auth.login(this.user)){
+        this.$router.push({ name: "Home" });
+      }
     },
   },
 };

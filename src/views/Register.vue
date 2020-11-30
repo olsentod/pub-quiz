@@ -1,15 +1,15 @@
 <template>
   <v-layout class="justify-center py-10">
-    <v-card class="rounded-xl py-4  " max-width="800" width="100%">
+    <v-card class="rounded-xl py-4" max-width="800" width="100%">
       <v-card-title class="justify-center">REGISTER</v-card-title>
       <v-card-text>
-        <v-form @submit.prevent="onSubmit">
+        <v-form v-model="validForm" @submit.prevent="onSubmit">
           <v-row>
             <v-col cols="6">
-              <v-text-field v-model="user.first" label="First Name" />
+              <v-text-field v-model="user.first" label="First Name" :rules="[rules.required]" />
             </v-col>
             <v-col cols="6">
-              <v-text-field v-model="user.last" label="Last Name" />
+              <v-text-field v-model="user.last" label="Last Name" :rules="[rules.required]" />
             </v-col>
             <v-col cols="6">
               <v-text-field
@@ -56,6 +56,7 @@ export default {
         password: "",
       },
       passwordShow: true,
+      validForm: false,
       rules: {
         required: (value) => !!value || "Required.",
         min: (v) => v.length >= 8 || "Min 8 characters",
@@ -68,9 +69,12 @@ export default {
   },
   methods: {
     onSubmit: async function() {
-      await auth.registerUser(this.user);
-      await auth.login(this.user);
-      this.$router.push({ name: "home" });
+      if (!this.validForm) return;
+
+      if (await auth.registerUser(this.user)) {
+        await auth.login(this.user);
+        this.$router.push({ name: "home" });
+      }
     },
   },
 };
