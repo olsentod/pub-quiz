@@ -41,15 +41,14 @@
 
 <script>
 import { io } from "socket.io-client";
+import * as auth from '../../services/AuthService';
 
 export default {
   data() {
     return {
       validForm: false,
-      // code: "",
       rules: {
         required: (v) => !!v || "Required.",
-        // code: (v) => v.length == 4 || "Must be 4 characters.",
       },
     };
   },
@@ -59,10 +58,7 @@ export default {
 
       this.socket.on("connect", () => {
         this.socket.emit("host-room", {
-          host: {
-            _id: this.$store.state.userId,
-            name: this.$store.state.name,
-          },
+          token: auth.getToken(),
           quizId,
         });
 

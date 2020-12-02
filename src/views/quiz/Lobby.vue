@@ -6,9 +6,23 @@
       </v-card-title>
       <v-card-text>
         <v-row>
-          <v-col cols="4" v-for="player in players" :key="player._id">
+          <v-col cols="4" v-for="player in players" :key="player.id">
             <h3 class="text-center">{{player.name}} ({{player.tag}})</h3>
           </v-col>
+        </v-row>
+        <v-row v-if="$store.state.userId == host.id">
+          <v-col class="text-center" cols="12"
+              ><v-btn
+                depressed
+                rounded
+                large
+                class="px-10"
+                color="yellow darken-4 white--text"
+                @click.prevent="$emit('start')"
+              >
+                START!
+              </v-btn></v-col
+            >
         </v-row>
       </v-card-text>
     </v-card>
@@ -17,6 +31,6 @@
 
 <script>
 export default {
-  props: ["players"],
+  props: ["players", "host"],
 };
 </script>
