@@ -1,7 +1,9 @@
 <template>
   <v-layout class="justify-center py-10">
     <v-card class="rounded-xl py-4" max-width="400" width="100%">
-      <v-card-title class="justify-center">LOGIN</v-card-title>
+      <v-card-title class="justify-center">
+        <h2 class="yellow--text text--darken-4">LOGIN</h2>
+      </v-card-title>
       <v-card-text>
         <v-form v-model="validForm" @submit.prevent="onSubmit">
           <v-row>
@@ -26,9 +28,16 @@
               ></v-text-field>
             </v-col>
             <v-col class="text-center" cols="12"
-              ><v-btn type="submit" depressed rounded
-                >GET QUIZZIN'</v-btn
-              ></v-col
+              ><v-btn
+                type="submit"
+                depressed
+                rounded
+                large
+                class="px-10"
+                color="yellow darken-4 white--text"
+              >
+                GET QUIZZIN'
+              </v-btn></v-col
             >
           </v-row>
         </v-form>
@@ -46,8 +55,8 @@ export default {
       passwordShow: true,
       validForm: false,
       user: {
-        email: '',
-        password: ''
+        email: "",
+        password: "",
       },
       rules: {
         required: (v) => !!v || "Required.",
@@ -61,9 +70,9 @@ export default {
   },
   methods: {
     async onSubmit() {
-      if(!this.validForm) return;
+      if (!this.validForm) return;
 
-      if(await auth.login(this.user)){
+      if (await auth.login(this.user)) {
         this.$router.push({ name: "Home" });
       }
     },

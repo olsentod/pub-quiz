@@ -8,6 +8,14 @@ export function isLoggedIn() {
     return token != null;
 }
 
+export function isAdmin() {
+    const token = decodeToken();
+    if (!token) {
+        return null;
+    }
+    return token.user.type == 'admin';
+}
+
 export async function login(user) {
     try {
         const res = await http().post('/auth', user);
@@ -42,7 +50,6 @@ export function getUserName() {
     if (!token) {
         return null;
     }
-    console.log(token);
     return token.user.name;
 }
 

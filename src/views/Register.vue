@@ -1,15 +1,25 @@
 <template>
   <v-layout class="justify-center py-10">
     <v-card class="rounded-xl py-4" max-width="800" width="100%">
-      <v-card-title class="justify-center">REGISTER</v-card-title>
+      <v-card-title class="justify-center">
+        <h2 class="yellow--text text--darken-4">REGISTER</h2>
+      </v-card-title>
       <v-card-text>
         <v-form v-model="validForm" @submit.prevent="onSubmit">
           <v-row>
             <v-col cols="6">
-              <v-text-field v-model="user.first" label="First Name" :rules="[rules.required]" />
+              <v-text-field
+                v-model="user.first"
+                label="First Name"
+                :rules="[rules.required]"
+              />
             </v-col>
             <v-col cols="6">
-              <v-text-field v-model="user.last" label="Last Name" :rules="[rules.required]" />
+              <v-text-field
+                v-model="user.last"
+                label="Last Name"
+                :rules="[rules.required]"
+              />
             </v-col>
             <v-col cols="6">
               <v-text-field
@@ -31,11 +41,18 @@
                 @click:append="passwordShow = !passwordShow"
               ></v-text-field>
             </v-col>
-            <v-col class="text-center" cols="12"
-              ><v-btn type="submit" depressed rounded
-                >GET QUIZZIN'</v-btn
-              ></v-col
-            >
+            <v-col class="text-center" cols="12">
+              <v-btn
+                type="submit"
+                depressed
+                rounded
+                large
+                class="px-10"
+                color="yellow darken-4 white--text"
+              >
+                GET QUIZZIN'
+              </v-btn>
+            </v-col>
           </v-row>
         </v-form>
       </v-card-text>

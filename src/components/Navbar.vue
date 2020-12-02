@@ -1,7 +1,7 @@
 <template>
-  <v-app-bar app color="yellow darken-4">
+  <v-app-bar app>
     <div class="d-flex align-center">
-      <h1>Pub Quiz</h1>
+      <h1 class="yellow--text text--darken-4">PUB QUIZ</h1>
     </div>
 
     <v-spacer></v-spacer>
@@ -14,7 +14,7 @@
       <span>Register</span>
     </v-btn>
 
-    <v-btn v-if="!$store.state.isLoggedIn" to="/login" >
+    <v-btn v-if="!$store.state.isLoggedIn" to="/login" class="yellow darken-1">
       <span>Login</span>
     </v-btn>
 
@@ -26,7 +26,11 @@
       <span>Host</span>
     </v-btn>
 
-    <v-btn v-if="$store.state.isLoggedIn" @click.prevent="logout()">
+    <v-btn v-if="$store.state.isAdmin" to="/admin" text class="mr-2">
+      <span>Quizzes</span>
+    </v-btn>
+
+    <v-btn v-if="$store.state.isLoggedIn" @click.prevent="logout()" class="yellow darken-1">
       <span>Logout</span>
     </v-btn>
   </v-app-bar>

@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <Navbar />
-    <v-main>
+    <v-main style="background-color: #FDD835">
       <ErrorToaster/>
       <router-view />
     </v-main>

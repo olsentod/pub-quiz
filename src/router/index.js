@@ -6,6 +6,7 @@ import Register from '../views/Register'
 import HostQuiz from '../views/quiz/HostQuiz'
 import JoinQuiz from '../views/quiz/JoinQuiz'
 import Quiz from '../views/quiz/Quiz'
+import Admin from '../views/Admin';
 import * as auth from '../services/AuthService';
 
 
@@ -86,6 +87,18 @@ const routes = [
         next();
       } else {
         next('/login');
+      }
+    }
+  },
+  {
+    path: '/admin/quiz',
+    name: 'Admin',
+    component: Admin,
+    beforeEnter: (to, from, next) => {
+      if (auth.isAdmin()) {
+        next();
+      } else {
+        next('/');
       }
     }
   },
