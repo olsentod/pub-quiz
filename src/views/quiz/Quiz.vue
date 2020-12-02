@@ -1,45 +1,43 @@
 <template>
   <div>
-    <Lobby v-if="players.length > 0" />
-      <p v-for="player of players" :key="player.id">
-        {{player.name}}
-      </p>
-    <!-- Lobby -->
-    <!-- Quiz questions -->
+    <Lobby v-if="players.length > 0" :players="players"/>
+    <!-- <p v-for="player of players" :key="player.id">
+      {{ player.name }}
+    </p> -->
   </div>
 </template>
 
 <script>
 import Lobby from "./Lobby";
 import { io } from "socket.io-client";
+import { showError } from "../../services/ErrorService";
 
 export default {
   data() {
     return {
       code: "",
       players: [],
-      socket: null
+      socket: null,
     };
   },
   created() {
-    console.log('created');
     if (this.$route.params.code) {
       this.code = this.$route.params.code;
     }
-    
+
     this.socket = io("ws://localhost:3000");
 
     this.socket.on("connect", () => {
       this.socket.emit("join-room", {
-        id: this.$store.state.userId,
+        _id: this.$store.state.userId,
         name: this.$store.state.name,
         code: this.code,
       });
     });
 
-    this.socket.on("message", () => {
-      this.joined = true;
-      console.log('You have joined the room.');
+    this.socket.on("failed-join", (error) => {
+      showError(error);
+      this.$router.push({ name: "Join" });
     });
 
     this.socket.on("player-joined", (data) => {
@@ -50,7 +48,7 @@ export default {
       this.players = data;
     });
   },
-  beforeDestroy(){
+  beforeDestroy() {
     this.socket.close();
   },
   components: {

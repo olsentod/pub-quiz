@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import quiz from './modules/quiz'
+import error from './modules/error'
 import * as auth from '../services/AuthService'
-import * as quiz from '../services/QuizService'
 
 Vue.use(Vuex)
 
@@ -11,16 +12,19 @@ export default new Vuex.Store({
     isAdmin: false,
     apiUrl: 'http://localhost:3000/api',
     name: null,
-    userId: null,
-    errors: [],
-    quizzes: [],
+    userId: null
+  },
+  actions: {
+    authenticate(context) {
+      context.commit('authenticate');
+    }
   },
   mutations: {
-    authenticate(state){
+    authenticate(state) {
       state.isLoggedIn = auth.isLoggedIn();
       state.isAdmin = auth.isAdmin();
 
-      if(state.isLoggedIn){
+      if (state.isLoggedIn) {
         state.name = auth.getUserName();
         state.userId = auth.getUserId();
       } else {
@@ -28,47 +32,9 @@ export default new Vuex.Store({
         state.userId = null;
       }
     },
-    updateQuizzes(state, quizzes){
-      state.quizzes = quizzes;
-    },
-    addError(state, error){
-      state.errors.push(error);
-    },
-    removeError(state){
-      state.errors.shift();
-    },
-  },
-  actions: {
-    authenticate(context){
-      context.commit('authenticate');
-    },
-    async getQuizzes(context){
-      const quizzes = await quiz.getQuizzes();
-      context.commit('updateQuizzes', quizzes);
-    },
-    async getQuiz(context, id){
-      const returnedQuiz = await quiz.getQuiz(id);
-      return returnedQuiz;
-    },
-    async updateQuiz(context, updatedQuiz){
-      await quiz.updateQuiz(updatedQuiz);
-      context.dispatch('getQuizzes');
-    },
-    async createQuiz(context, newQuiz){
-      await quiz.createQuiz(newQuiz);
-      context.dispatch('getQuizzes');
-    },
-    async deleteQuiz(context, id){
-      await quiz.deleteQuiz(id);
-      context.dispatch('getQuizzes');
-    },
-    addError(context, error){
-      context.commit('addError', error);
-    },
-    removeError(context){
-      context.commit('removeError');
-    }
   },
   modules: {
+    quiz,
+    error
   }
 })

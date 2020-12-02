@@ -128,9 +128,9 @@ export default {
       if (!this.validForm) return;
 
       if (this.$route.params.id) {
-        this.$store.dispatch("updateQuiz", this.quiz);
+        this.$store.dispatch("quiz/updateQuiz", this.quiz);
       } else {
-        this.$store.dispatch("createQuiz", this.quiz);
+        this.$store.dispatch("quiz/createQuiz", this.quiz);
       }
       this.$router.push({ name: "ListQuizzes" });
     },
@@ -167,7 +167,7 @@ export default {
   },
   async created() {
     if (this.$route.params.id) {
-      this.quiz = await this.$store.dispatch("getQuiz", this.$route.params.id);
+      this.quiz = await this.$store.dispatch("quiz/getQuiz", this.$route.params.id);
     } else {
       this.quiz = { name: "", description: "", questions: [] };
     }
