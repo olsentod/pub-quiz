@@ -7,6 +7,8 @@ import HostQuiz from '../views/quiz/HostQuiz'
 import JoinQuiz from '../views/quiz/JoinQuiz'
 import Quiz from '../views/quiz/Quiz'
 import Admin from '../views/Admin';
+import EditQuiz from '../views/quiz/EditQuiz';
+import ListQuizzes from '../views/quiz/ListQuizzes';
 import * as auth from '../services/AuthService';
 
 
@@ -91,9 +93,45 @@ const routes = [
     }
   },
   {
-    path: '/admin/quiz',
+    path: '/admin',
     name: 'Admin',
     component: Admin,
+    beforeEnter: (to, from, next) => {
+      if (auth.isAdmin()) {
+        next();
+      } else {
+        next('/');
+      }
+    }
+  },
+  {
+    path: '/admin/quiz/edit/:id',
+    name: 'EditQuiz',
+    component: EditQuiz,
+    beforeEnter: (to, from, next) => {
+      if (auth.isAdmin()) {
+        next();
+      } else {
+        next('/');
+      }
+    }
+  },
+  {
+    path: '/admin/quiz/new',
+    name: 'NewQuiz',
+    component: EditQuiz,
+    beforeEnter: (to, from, next) => {
+      if (auth.isAdmin()) {
+        next();
+      } else {
+        next('/');
+      }
+    }
+  },
+  {
+    path: '/admin/quiz/list',
+    name: 'ListQuizzes',
+    component: ListQuizzes,
     beforeEnter: (to, from, next) => {
       if (auth.isAdmin()) {
         next();

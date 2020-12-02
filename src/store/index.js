@@ -13,7 +13,7 @@ export default new Vuex.Store({
     name: null,
     userId: null,
     errors: [],
-    quizzes: []
+    quizzes: [],
   },
   mutations: {
     authenticate(state){
@@ -28,7 +28,7 @@ export default new Vuex.Store({
         state.userId = null;
       }
     },
-    addQuizzes(state, quizzes){
+    updateQuizzes(state, quizzes){
       state.quizzes = quizzes;
     },
     addError(state, error){
@@ -36,7 +36,7 @@ export default new Vuex.Store({
     },
     removeError(state){
       state.errors.shift();
-    }
+    },
   },
   actions: {
     authenticate(context){
@@ -44,7 +44,23 @@ export default new Vuex.Store({
     },
     async getQuizzes(context){
       const quizzes = await quiz.getQuizzes();
-      context.commit('addQuizzes', quizzes)
+      context.commit('updateQuizzes', quizzes);
+    },
+    async getQuiz(context, id){
+      const returnedQuiz = await quiz.getQuiz(id);
+      return returnedQuiz;
+    },
+    async updateQuiz(context, updatedQuiz){
+      await quiz.updateQuiz(updatedQuiz);
+      context.dispatch('getQuizzes');
+    },
+    async createQuiz(context, newQuiz){
+      await quiz.createQuiz(newQuiz);
+      context.dispatch('getQuizzes');
+    },
+    async deleteQuiz(context, id){
+      await quiz.deleteQuiz(id);
+      context.dispatch('getQuizzes');
     },
     addError(context, error){
       context.commit('addError', error);

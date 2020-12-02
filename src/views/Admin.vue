@@ -1,17 +1,22 @@
 <template>
   <div>
-    <EditQuiz v-if="getSelectedQuiz" :quiz="getSelectedQuiz" @cancel="selectedQuizId = null" />
+    <!-- <EditQuiz
+      v-if="getSelectedQuiz"
+      :quiz="getSelectedQuiz"
+      @cancel="cancel"
+      @update="updateQuiz"
+    />
     <ListQuizzes
       v-if="!getSelectedQuiz"
-      :quizzes="$store.state.quizzes"
+      :quizzes=""
       @choose-quiz="selectQuiz"
-    />
+    /> -->
   </div>
 </template>
 
 <script>
-import EditQuiz from "./quiz/EditQuiz";
-import ListQuizzes from "./quiz/ListQuizzes";
+// import EditQuiz from "./quiz/EditQuiz";
+// import ListQuizzes from "./quiz/ListQuizzes";
 
 export default {
   data() {
@@ -27,16 +32,24 @@ export default {
     },
   },
   methods: {
+    cancel(){
+      this.selectedQuizId = null
+      this.$store.dispatch("getQuizzes");
+    },
     selectQuiz(id) {
       this.selectedQuizId = id;
+    },
+    updateQuiz(quiz) {
+      this.$store.dispatch("updateQuiz", quiz);
+      this.selectedQuizId = null;
     },
   },
   async created() {
     this.$store.dispatch("getQuizzes");
   },
   components: {
-    EditQuiz,
-    ListQuizzes,
+    // EditQuiz,
+    // ListQuizzes,
   },
 };
 </script>

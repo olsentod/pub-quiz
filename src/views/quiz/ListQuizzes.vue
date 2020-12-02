@@ -6,22 +6,24 @@
       </v-card-title>
       <v-card-text>
         <v-list subheader two-line>
-          <v-list-item v-for="quiz in quizzes" :key="quiz._id">
-            <v-list-item-content>
-              <v-list-item-title v-text="quiz.name"></v-list-item-title>
-            </v-list-item-content>
+          <v-list-item-group>
+            <v-list-item v-for="quiz in $store.state.quizzes" :key="quiz._id" :to="`/admin/quiz/edit/${quiz._id}`">
+              <v-list-item-content>
+                <v-list-item-title v-text="quiz.name"></v-list-item-title>
+              </v-list-item-content>
 
-            <v-list-item-action class="flex-row">
-              <v-btn @click.prevent="$emit('choose-quiz', quiz._id)" icon>
-                <v-icon>mdi-playlist-edit</v-icon>
-              </v-btn>
-            </v-list-item-action>
-          </v-list-item>
+              <v-list-item-action class="flex-row">
+                <v-btn @click.prevent="$store.dispatch('deleteQuiz', quiz._id)" icon>
+                  <v-icon>mdi-trash-can-outline</v-icon>
+                </v-btn>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list-item-group>
         </v-list>
 
         <v-row>
           <v-col class="text-center">
-            <v-btn>
+            <v-btn to="/admin/quiz/new">
               Create Quiz
             </v-btn>
           </v-col>
@@ -33,6 +35,8 @@
 
 <script>
 export default {
-  props: ['quizzes']
+  created() {
+    this.$store.dispatch("getQuizzes");
+  },
 };
 </script>

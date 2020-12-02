@@ -26,7 +26,7 @@
       <span>Host</span>
     </v-btn>
 
-    <v-btn v-if="$store.state.isAdmin" to="/admin" text class="mr-2">
+    <v-btn v-if="$store.state.isAdmin" to="/admin/quiz/list" text class="mr-2">
       <span>Quizzes</span>
     </v-btn>
 
@@ -44,7 +44,7 @@ export default {
   methods: {
     logout: function(){
       auth.logout();
-      this.$router.push({name: 'home'});
+      this.$router.push({name: 'Home'});
     }
   }
 }

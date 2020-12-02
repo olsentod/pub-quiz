@@ -90,7 +90,7 @@ export default {
 
       if (await auth.registerUser(this.user)) {
         await auth.login(this.user);
-        this.$router.push({ name: "home" });
+        this.$router.push({ name: "Home" });
       }
     },
   },
