@@ -41,7 +41,7 @@
 
 <script>
 import { io } from "socket.io-client";
-import * as auth from '../../services/AuthService';
+import * as auth from "../../services/AuthService";
 
 export default {
   data() {

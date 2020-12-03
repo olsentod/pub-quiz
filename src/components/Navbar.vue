@@ -1,7 +1,7 @@
 <template>
   <v-app-bar app>
     <div class="d-flex align-center">
-      <h1 class="yellow--text text--darken-4">PUB QUIZ</h1>
+      <h1 class="yellow--text text--darken-4">DUCK DUCK QUIZ</h1>
     </div>
 
     <v-spacer></v-spacer>
@@ -30,7 +30,7 @@
       <span>Quizzes</span>
     </v-btn>
 
-    <v-btn v-if="$store.state.isLoggedIn" @click.prevent="logout()" class="yellow darken-1">
+    <v-btn v-if="$store.state.isLoggedIn" to="/" @click.prevent="logout()" class="yellow darken-1">
       <span>Logout</span>
     </v-btn>
   </v-app-bar>
@@ -44,7 +44,9 @@ export default {
   methods: {
     logout: function(){
       auth.logout();
-      this.$router.push({name: 'Home'});
+      if(this.$route.path != '/'){
+        this.$router.push({name: 'Home'});
+      }
     }
   }
 }

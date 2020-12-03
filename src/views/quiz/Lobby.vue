@@ -4,25 +4,44 @@
       <v-card-title class="justify-center">
         <h2 class="yellow--text text--darken-4">QUIZ LOBBY</h2>
       </v-card-title>
+      <v-card-subtitle class="text-center">
+        <h2>
+          Join Code:
+          <v-tooltip v-model="showCopied" top>
+            <template v-slot:activator="{ on }">
+              <input
+                type="text"
+                ref="roomCode"
+                class="roomCode"
+                :value="code"
+                size="2"
+                readonly="readonly"
+              />
+              <input type="hidden" v-on="on"/>
+            </template>
+            <span>Copied</span>
+          </v-tooltip>
+        </h2>
+      </v-card-subtitle>
       <v-card-text>
         <v-row>
           <v-col cols="4" v-for="player in players" :key="player.id">
-            <h3 class="text-center">{{player.name}} ({{player.tag}})</h3>
+            <h3 class="text-center">{{ player.name }} ({{ player.tag }})</h3>
           </v-col>
         </v-row>
         <v-row v-if="$store.state.userId == host.id">
           <v-col class="text-center" cols="12"
-              ><v-btn
-                depressed
-                rounded
-                large
-                class="px-10"
-                color="yellow darken-4 white--text"
-                @click.prevent="$emit('start')"
-              >
-                START!
-              </v-btn></v-col
+            ><v-btn
+              depressed
+              rounded
+              large
+              class="px-10"
+              color="yellow darken-4 white--text"
+              @click.prevent="$emit('start')"
             >
+              START!
+            </v-btn></v-col
+          >
         </v-row>
       </v-card-text>
     </v-card>
@@ -31,6 +50,32 @@
 
 <script>
 export default {
-  props: ["players", "host"],
+  data() {
+    return {
+      showCopied: false,
+    };
+  },
+  mounted() {
+    this.$refs.roomCode.addEventListener("click", () => {
+      this.$refs.roomCode.select();
+      document.execCommand("copy");
+      this.showCopied = true;
+      setTimeout(() => {
+        this.showCopied = false;
+      }, 1000);
+    });
+  },
+  props: ["players", "host", "code"],
 };
 </script>
+
+<style>
+.roomCode {
+  cursor: pointer;
+  outline: none;
+}
+.roomCode::selection {
+  color: inherit;
+  background: transparent;
+}
+</style>
