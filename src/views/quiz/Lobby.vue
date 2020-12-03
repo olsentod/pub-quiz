@@ -1,8 +1,8 @@
 <template>
   <v-layout class="justify-center py-10">
     <v-card class="rounded-xl py-4" max-width="800" width="100%">
-      <v-card-title class="justify-center">
-        <h2 class="yellow--text text--darken-4">QUIZ LOBBY</h2>
+      <v-card-title class="justify-center mb-3">
+        <h2 class="yellow--text text--darken-4">{{quizName}}</h2>
       </v-card-title>
       <v-card-subtitle class="text-center">
         <h2>
@@ -14,10 +14,10 @@
                 ref="roomCode"
                 class="roomCode"
                 :value="code"
-                size="2"
+                size="4"
                 readonly="readonly"
               />
-              <input type="hidden" v-on="on"/>
+              <input type="hidden" v-on="on" />
             </template>
             <span>Copied</span>
           </v-tooltip>
@@ -65,7 +65,7 @@ export default {
       }, 1000);
     });
   },
-  props: ["players", "host", "code"],
+  props: ["players", "host", "code", "quizName"],
 };
 </script>
 

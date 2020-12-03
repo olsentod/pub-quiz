@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class='quicksand-font'>
     <Navbar />
     <v-main style="background-color: #FDD835">
       <ErrorToaster/>
@@ -23,3 +23,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.quicksand-font {
+  font-family: 'Quicksand', sans-serif;
+}
+</style>

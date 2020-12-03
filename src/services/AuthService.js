@@ -22,6 +22,7 @@ export async function login(user) {
         setToken(res.data.token);
         return true;
     } catch (error) {
+        console.error(error);
         if (error.response.status == 401) {
             showError({ message: "Incorrect Email/Password Combination" });
         }

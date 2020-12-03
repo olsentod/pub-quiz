@@ -1,6 +1,9 @@
 <template>
   <v-layout v-if="quiz" class="justify-center py-10">
     <v-card class="rounded-xl py-4" max-width="800" width="100%">
+      <v-card-title class="justify-center">
+        <h2 class="yellow--text text--darken-4">{{quiz.name}}</h2>
+      </v-card-title>
       <v-card-text>
         <v-form v-model="validForm" @submit.prevent="onSubmit">
           <v-row>
@@ -74,7 +77,6 @@
                 depressed
                 rounded
                 class="px-10 mr-5"
-                color="yellow darken-4 white--text"
                 @click="addQuestion"
               >
                 Add Question

@@ -5,6 +5,7 @@
       :players="players"
       :host="host"
       :code="code"
+      :quizName="quizName"
       @start="startQuiz"
     />
     <Question
@@ -41,6 +42,7 @@ export default {
       code: "",
       players: [],
       answers: [],
+      quizName: '',
       host: null,
       socket: null,
       started: false,
@@ -98,10 +100,12 @@ export default {
 
     /**
      * Reply from server after initially connecting
-     * @param {Object} host The host of the room
+     * @param {Object} game The game
      */
-    this.socket.on("message", (host) => {
-      this.host = host;
+    this.socket.on("message", (game) => {
+      console.log(game);
+      this.host = game.host;
+      this.quizName = game.quiz.name;
     });
 
     /**

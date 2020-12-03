@@ -7,13 +7,20 @@
       <v-card-text>
         <v-list>
           <v-list-item-group>
-            <v-list-item v-for="quiz in $store.state.quiz.quizzes" :key="quiz._id" :to="`/admin/quiz/edit/${quiz._id}`">
+            <v-list-item
+              v-for="quiz in $store.state.quiz.quizzes"
+              :key="quiz._id"
+              :to="`/admin/quiz/edit/${quiz._id}`"
+            >
               <v-list-item-content>
                 <v-list-item-title v-text="quiz.name"></v-list-item-title>
               </v-list-item-content>
 
               <v-list-item-action class="flex-row">
-                <v-btn @click.prevent="$store.dispatch('quiz/deleteQuiz', quiz._id)" icon>
+                <v-btn
+                  @click.prevent="$store.dispatch('quiz/deleteQuiz', quiz._id)"
+                  icon
+                >
                   <v-icon>mdi-trash-can-outline</v-icon>
                 </v-btn>
               </v-list-item-action>
@@ -23,7 +30,14 @@
 
         <v-row>
           <v-col class="text-center">
-            <v-btn to="/admin/quiz/new">
+            <v-btn
+              to="/admin/quiz/new"
+              depressed
+              rounded
+              large
+              color="yellow darken-4 white--text"
+              class="px-10"
+            >
               Create Quiz
             </v-btn>
           </v-col>
