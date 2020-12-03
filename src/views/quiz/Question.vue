@@ -4,8 +4,8 @@
       <v-card-subtitle class="pb-0">
         <h2 class="text-center">Question {{ number }}</h2>
       </v-card-subtitle>
-      <v-card-title class="justify-center">
-        <h2 class=" yellow--text text--darken-4">
+      <v-card-title class="justify-center text-wrap">
+        <h2 class="yellow--text text--darken-4 text-wrap">
           {{ question.q }}
         </h2>
       </v-card-title>

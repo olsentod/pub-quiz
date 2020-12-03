@@ -26,7 +26,7 @@
       <v-card-text>
         <v-row>
           <v-col cols="4" v-for="player in players" :key="player.id">
-            <h3 class="text-center">{{ player.name }} ({{ player.tag }})</h3>
+            <h3 class="text-center">{{ player.name }} {{ player.tag == 'host' ? `(${player.tag})` : '' }}</h3>
           </v-col>
         </v-row>
         <v-row v-if="$store.state.userId == host.id">

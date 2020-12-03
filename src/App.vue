@@ -28,4 +28,14 @@ export default {
 .quicksand-font {
   font-family: 'Quicksand', sans-serif;
 }
+.v-card{
+  padding: 0 1rem;
+}
+.v-card__title{
+  word-break: normal;
+}
+.v-btn
+{
+  font-weight: 600;
+}
 </style>
