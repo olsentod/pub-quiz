@@ -83,7 +83,7 @@ export default {
       this.code = this.$route.params.code;
     }
 
-    this.socket = io("ws://localhost:3000");
+    this.socket = io(this.$store.state.socketUrl);
 
     /**
      * Recieved when a player connects with Socket.io

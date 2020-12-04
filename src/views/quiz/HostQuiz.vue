@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     hostRoom(quizId) {
-      this.socket = io("ws://localhost:3000");
+      this.socket = io(this.$store.state.socketUrl);
 
       this.socket.on("connect", () => {
         this.socket.emit("host-room", {

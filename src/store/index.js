@@ -11,6 +11,7 @@ export default new Vuex.Store({
     isLoggedIn: false,
     isAdmin: false,
     apiUrl: 'http://localhost:3000/api',
+    socketUrl: 'ws://localhost:3000',
     name: null,
     userId: null
   },
