@@ -1,5 +1,5 @@
 <template>
-  <v-layout class="justify-center py-10">
+  <v-layout class="justify-center px-5 py-10">
     <v-card class="rounded-xl py-4" max-width="800" width="100%">
       <v-card-title class="justify-center">
         <h2 class="yellow--text text--darken-4">REGISTER</h2>
@@ -90,7 +90,7 @@ export default {
 
       if (await auth.registerUser(this.user)) {
         await auth.login(this.user);
-        this.$router.push({ name: "Home" });
+        this.$router.push({ name: "Join" });
       }
     },
   },

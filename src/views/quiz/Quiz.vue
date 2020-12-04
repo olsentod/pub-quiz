@@ -130,6 +130,7 @@ export default {
      * @param {Array} data The answer
      */
     this.socket.on("player-left", (data) => {
+      if(this.finished) return;
       this.players = data;
     });
 

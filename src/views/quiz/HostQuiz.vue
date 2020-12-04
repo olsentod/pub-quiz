@@ -1,5 +1,5 @@
 <template>
-  <v-layout class="justify-center py-10">
+  <v-layout class="justify-center px-5 py-10">
     <v-card class="rounded-xl py-4" max-width="800" width="100%">
       <v-card-title class="justify-center mb-3">
         <h2 class="yellow--text text--darken-4">HOST QUIZ</h2>

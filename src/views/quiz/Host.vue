@@ -1,10 +1,15 @@
 <template>
-  <v-layout class="align-center py-10 flex-column">
-    <h1 class="grey--text text--darken-4">{{ question.q }}</h1>
-    <h2 class="grey--text text--darken-3">{{ question.a }}</h2>
+  <v-layout class="align-center px-5 py-10 flex-column">
     <v-row style="max-width: 1200px; width: 100%;">
+      <v-col cols="12" class="text-center">
+      <h1 class="grey--text text--darken-4">{{ question.q }}</h1>
+      <h2 class="grey--text text--darken-3">{{ question.a }}</h2>
+
+      </v-col>
       <v-col
-        cols="4"
+        cols="12"
+        sm="6"
+        md="4"
         v-for="({ user, answer }, index) in answers"
         :key="index"
         style="cursor: pointer"
@@ -21,7 +26,11 @@
         class="text-center"
         v-if="numOfPlayers - answers.length > 0"
       >
-        <h3>Waiting on {{ numOfPlayers - answers.length }} answers</h3>
+        <h3>
+          Waiting on {{ numOfPlayers - answers.length }} answer{{
+            numOfPlayers - answers.length > 1 ? "s" : ""
+          }}
+        </h3>
       </v-col>
     </v-row>
   </v-layout>

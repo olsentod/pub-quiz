@@ -1,53 +1,116 @@
 <template>
-  <v-app-bar app>
-    <div class="d-flex align-center">
-      <h1 class="yellow--text text--darken-4">DUCK DUCK QUIZ</h1>
-    </div>
+  <div>
+    <v-app-bar app>
+      <div class="d-flex align-center">
+        <h1 class="yellow--text text--darken-4">DUCK DUCK QUIZ</h1>
+      </div>
+      <v-spacer></v-spacer>
 
-    <v-spacer></v-spacer>
+      <v-toolbar class="hidden-xs-only justify-end" flat color="transparent">
+        <v-spacer></v-spacer>
 
-    <v-btn to="/" text class="mr-2">
-      <span>Home</span>
-    </v-btn>
+        <v-btn to="/" text class="mr-2">Home</v-btn>
 
-    <v-btn v-if="!$store.state.isLoggedIn" to="/register" text class="mr-2">
-      <span>Register</span>
-    </v-btn>
+        <v-btn
+          v-if="!$store.state.isLoggedIn"
+          to="/login"
+          text
+          class="yellow darken-1"
+          >Login
+        </v-btn>
 
-    <v-btn v-if="!$store.state.isLoggedIn" to="/login" class="yellow darken-1">
-      <span>Login</span>
-    </v-btn>
+        <v-btn v-if="$store.state.isLoggedIn" to="/join" text class="mr-2">
+          Join
+        </v-btn>
 
-    <v-btn v-if="$store.state.isLoggedIn" to="/join" text class="mr-2">
-      <span>Join</span>
-    </v-btn>
+        <v-btn v-if="$store.state.isLoggedIn" to="/host" text class="mr-2">
+          Host
+        </v-btn>
 
-    <v-btn v-if="$store.state.isLoggedIn" to="/host" text class="mr-2">
-      <span>Host</span>
-    </v-btn>
+        <v-btn
+          v-if="$store.state.isAdmin"
+          to="/admin/quiz/list"
+          text
+          class="mr-2"
+        >
+          Quizzes
+        </v-btn>
 
-    <v-btn v-if="$store.state.isAdmin" to="/admin/quiz/list" text class="mr-2">
-      <span>Quizzes</span>
-    </v-btn>
+        <v-btn
+          v-if="$store.state.isLoggedIn"
+          to="/"
+          @click.prevent="logout()"
+          class="yellow darken-1"
+        >
+          Logout
+        </v-btn>
+      </v-toolbar>
 
-    <v-btn v-if="$store.state.isLoggedIn" to="/" @click.prevent="logout()" class="yellow darken-1">
-      <span>Logout</span>
-    </v-btn>
-  </v-app-bar>
+      <v-app-bar-nav-icon
+        @click.stop="drawer = !drawer"
+        class="hidden-sm-and-up align-self-end"
+      ></v-app-bar-nav-icon>
+    </v-app-bar>
+    <v-navigation-drawer v-model="drawer" absolute temporary>
+      <v-list nav dense>
+        <v-list-item-group>
+          <v-list-item to="/">
+            <v-list-item-title>
+              Home
+            </v-list-item-title>
+          </v-list-item>
+
+          <v-list-item to="/login" v-if="!$store.state.isLoggedIn" class="yellow darken-1">
+            <v-list-item-title>Login</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item to="/join" v-if="$store.state.isLoggedIn">
+            <v-list-item-title>Join</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item to="/host" v-if="$store.state.isLoggedIn">
+            <v-list-item-title>Host</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item to="/admin/quiz/list" v-if="$store.state.isAdmin">
+            <v-list-item-title>Quizzes</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item
+            to="/"
+            @click.prevent="logout()"
+            v-if="$store.state.isLoggedIn"
+            class="yellow darken-1"
+          >
+            <v-list-item-title>Logout</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+  </div>
 </template>
 
 <script>
-import * as auth from '../services/AuthService';
+import * as auth from "../services/AuthService";
 
 export default {
-  name: 'Navbar',
+  data: () => ({
+    drawer: false,
+    group: null,
+  }),
+
+  watch: {
+    group() {
+      this.drawer = false;
+    },
+  },
   methods: {
-    logout: function(){
+    logout: function() {
       auth.logout();
-      if(this.$route.path != '/'){
-        this.$router.push({name: 'Home'});
+      if (this.$route.path != "/") {
+        this.$router.push({ name: "Home" });
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>

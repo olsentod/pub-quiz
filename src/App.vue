@@ -32,7 +32,7 @@ export default {
   padding: 0 1rem;
 }
 .v-card__title{
-  word-break: normal;
+  word-break: normal!important;
 }
 .v-btn
 {

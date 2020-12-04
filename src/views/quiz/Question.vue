@@ -1,11 +1,11 @@
 <template>
-  <v-layout class="justify-center py-10">
+  <v-layout class="justify-center px-5 py-10">
     <v-card class="rounded-xl py-4" max-width="500" width="100%">
       <v-card-subtitle class="pb-0">
         <h2 class="text-center">Question {{ number }}</h2>
       </v-card-subtitle>
-      <v-card-title class="justify-center text-wrap">
-        <h2 class="yellow--text text--darken-4 text-wrap">
+      <v-card-title class="justify-center">
+        <h2 class="yellow--text text--darken-4 text-center">
           {{ question.q }}
         </h2>
       </v-card-title>

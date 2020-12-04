@@ -1,5 +1,5 @@
 <template>
-  <v-layout class="justify-center py-10">
+  <v-layout class="justify-center px-5 py-10">
     <v-card class="rounded-xl py-4" max-width="400" width="100%">
       <v-card-title class="justify-center">
         <h2 class="yellow--text text--darken-4">LOGIN</h2>
@@ -14,7 +14,7 @@
                 :rules="[rules.required, rules.email]"
               />
             </v-col>
-            <v-col cols="12">
+            <v-col cols="12" class="mb-2">
               <v-text-field
                 :append-icon="passwordShow ? 'mdi-eye-off' : 'mdi-eye'"
                 :rules="[rules.required, rules.min]"
@@ -27,18 +27,21 @@
                 @click:append="passwordShow = !passwordShow"
               ></v-text-field>
             </v-col>
-            <v-col class="text-center" cols="12"
-              ><v-btn
+            <v-col class="text-center" cols="12">
+              <v-btn
                 type="submit"
                 depressed
                 rounded
                 large
-                class="px-10"
+                class="px-10 mb-3"
                 color="yellow darken-4 white--text"
               >
                 GET QUIZZIN'
-              </v-btn></v-col
-            >
+              </v-btn>
+              <v-btn style="font-weight: 400" text to="/register">
+               Create an Account
+              </v-btn>
+            </v-col>
           </v-row>
         </v-form>
       </v-card-text>
@@ -73,7 +76,7 @@ export default {
       if (!this.validForm) return;
 
       if (await auth.login(this.user)) {
-        this.$router.push({ name: "Home" });
+        this.$router.push({ name: "Join" });
       }
     },
   },

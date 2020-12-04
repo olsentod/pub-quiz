@@ -1,5 +1,5 @@
 <template>
-  <v-layout v-if="quiz" class="justify-center py-10">
+  <v-layout v-if="quiz" class="justify-center px-5 py-10">
     <v-card class="rounded-xl py-4" max-width="800" width="100%">
       <v-card-title class="justify-center">
         <h2 class="yellow--text text--darken-4">{{quiz.name}}</h2>
@@ -28,18 +28,18 @@
                 <v-list-item>
                   <v-list-item-content>
                     <v-row>
-                      <v-col cols="6">
+                      <v-col cols="12" sm="6">
                         <v-textarea
                           label="Question"
-                          rows="2"
+                          rows="1"
                           auto-grow
                           v-model="question.q"
                         ></v-textarea>
                       </v-col>
-                      <v-col cols="6">
+                      <v-col cols="12" sm="6">
                         <v-textarea
                           label="Answer"
-                          rows="2"
+                          rows="1"
                           auto-grow
                           v-model="question.a"
                         ></v-textarea>
@@ -88,7 +88,7 @@
                 depressed
                 rounded
                 large
-                class="px-10 mr-5"
+                class="px-10 mr-0 mr-sm-2 mb-2"
                 color="yellow darken-4 white--text"
               >
                 Save Quiz
@@ -99,7 +99,7 @@
                 outlined
                 rounded
                 large
-                class="px-10"
+                class="px-10 mb-2"
                 color="yellow darken-4 white--text"
               >
                 Cancel
