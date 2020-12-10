@@ -1,4 +1,4 @@
-# pub-quiz-to
+# duck-duck-quiz
 
 ## Project setup
 ```

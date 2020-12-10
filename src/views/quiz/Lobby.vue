@@ -8,16 +8,8 @@
         <h2>
           Join Code:
           <v-tooltip v-model="showCopied" top>
-            <template v-slot:activator="{ on }">
-              <input
-                type="text"
-                ref="roomCode"
-                class="roomCode"
-                :value="code"
-                size="4"
-                readonly="readonly"
-              />
-              <input type="hidden" v-on="on" />
+            <template v-slot:activator="{}">
+              <span ref="roomCode" class="roomCode">{{code}}</span>
             </template>
             <span>Copied</span>
           </v-tooltip>
@@ -57,8 +49,7 @@ export default {
   },
   mounted() {
     this.$refs.roomCode.addEventListener("click", () => {
-      this.$refs.roomCode.select();
-      document.execCommand("copy");
+      navigator.clipboard.writeText(this.code);
       this.showCopied = true;
       setTimeout(() => {
         this.showCopied = false;
