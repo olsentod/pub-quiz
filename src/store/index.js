@@ -10,8 +10,8 @@ export default new Vuex.Store({
   state: {
     isLoggedIn: false,
     isAdmin: false,
-    apiUrl: 'http://localhost:3000/api',
-    socketUrl: 'ws://localhost:3000',
+    apiUrl: `${window.location.protocol}//${window.location.hostname}:3000/api`,
+    socketUrl: `ws://${window.location.hostname}:3000`,
     name: null,
     userId: null
   },
