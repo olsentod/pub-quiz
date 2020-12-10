@@ -8,18 +8,16 @@
         <h3>Instructions</h3>
       </v-card-subtitle> -->
       <v-card-text>
-        <p>Duck Duck Quiz is a quiz game. Login or register to start.</p>
+        
         <p>
-          Once you have logged in, anyone can host a quiz by clicking on it in
-          the navigation. Once you start hosting a quiz, it will create a lobby
-          for your friends and provide a join code. Share that code with your friends for
-          them to join!
+          You can either host a quiz or join a quiz. To host a quiz, login, visit the
+          Host tab, and select a quiz. A random join code will be generated that
+          you can share with others to join.
         </p>
         <p>
-          Everyone in the room gets to answer the list of questions. As the host,
-          you will recieve the answers of the participants. Choose the first and
-          most correct answer. At the end of the quiz, the person with the most
-          points wins!
+          Once the quiz begins, the host has ability to select the correct
+          answer, which will award points to the user. At the end of the quiz,
+          the user with the most correct answers wins!
         </p>
         <v-row class="justify-center">
           <v-btn
