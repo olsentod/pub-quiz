@@ -4,11 +4,7 @@
       <v-card-title class="justify-center mb-3">
         <h2 class="yellow--text text--darken-4">Welcome!</h2>
       </v-card-title>
-      <!-- <v-card-subtitle class="text-center">
-        <h3>Instructions</h3>
-      </v-card-subtitle> -->
       <v-card-text>
-        
         <p>
           You can either host a quiz or join a quiz. To host a quiz, login, visit the
           Host tab, and select a quiz. A random join code will be generated that

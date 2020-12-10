@@ -127,7 +127,6 @@ export default {
      * @param {Object} game The game
      */
     this.socket.on("message", (game) => {
-      console.log(game);
       this.host = game.host;
       this.quizName = game.quiz.name;
     });
