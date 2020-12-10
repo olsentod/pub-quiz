@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 
 export function isLoggedIn() {
     const token = decodeToken();
-    return token != null;
+    return token != null && !checkIfExpired(token);
 }
 
 export function isAdmin() {
@@ -13,7 +13,7 @@ export function isAdmin() {
     if (!token) {
         return null;
     }
-    return token.user.type == 'admin';
+    return token.user.type == 'admin' && !checkIfExpired(token);
 }
 
 export async function login(user) {
@@ -35,6 +35,12 @@ export function logout() {
     store.dispatch('authenticate');
 }
 
+function checkIfExpired(token) {
+    if (Date.now() >= token.exp * 1000)
+        return true;
+    else
+        return false;
+}
 
 function setToken(token) {
     if (!token) return;
