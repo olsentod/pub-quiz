@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar app elevation="1">
+    <v-app-bar app elevation="2">
       <div class="d-flex align-center">
         <h1 class="yellow--text text--darken-4">DUCK DUCK QUIZ</h1>
       </div>

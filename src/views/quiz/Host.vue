@@ -2,9 +2,22 @@
   <v-layout class="align-center px-5 py-10 flex-column">
     <v-row style="max-width: 1200px; width: 100%;">
       <v-col cols="12" class="text-center">
-      <h1 class="grey--text text--darken-4">{{ question.q }}</h1>
-      <h2 class="grey--text text--darken-3">{{ question.a }}</h2>
-
+        <h1 class="grey--text text--darken-4">{{ question.q }}</h1>
+        <h2 class="grey--text text--darken-3">{{ question.a }}</h2>
+      </v-col>
+      <v-col
+        cols="12"
+        class="text-center"
+        v-if="numOfPlayers - answers.length > 0"
+      >
+        <h3>
+          Waiting on {{ numOfPlayers - answers.length }} answer{{
+            numOfPlayers - answers.length > 1 ? "s" : ""
+          }}
+        </h3>
+      </v-col>
+      <v-col cols="12" style="cursor: pointer" class="text-center" v-if="answers.length > 0">
+        <v-btn x-large outlined rounded @click.prevent="$emit('choose', null)">No Correct Answers</v-btn>
       </v-col>
       <v-col
         cols="12"
@@ -20,17 +33,6 @@
             <h3>{{ answer }}</h3>
           </v-card-title>
         </v-card>
-      </v-col>
-      <v-col
-        cols="12"
-        class="text-center"
-        v-if="numOfPlayers - answers.length > 0"
-      >
-        <h3>
-          Waiting on {{ numOfPlayers - answers.length }} answer{{
-            numOfPlayers - answers.length > 1 ? "s" : ""
-          }}
-        </h3>
       </v-col>
     </v-row>
   </v-layout>

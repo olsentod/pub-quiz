@@ -9,20 +9,37 @@
       @start="startQuiz"
     />
     <Question
-      v-if="started && $store.state.userId != host.id && !finished"
+      v-if="
+        started &&
+          $store.state.userId != host.id &&
+          !finished &&
+          !showLeaderBoard
+      "
       :question="question"
       :number="number"
       :key="question._id"
       @answer="answerQuestion"
     />
     <Host
-      v-if="started && $store.state.userId == host.id && !finished"
+      v-if="
+        started &&
+          $store.state.userId == host.id &&
+          !finished &&
+          !showLeaderBoard
+      "
       :answers="answers"
       :question="question"
       :numOfPlayers="currentPlayers.length"
       @choose="selectAnswer"
     />
-    <Winners v-if="finished" :players="players" />
+    <Winners
+      v-if="finished || showLeaderBoard"
+      :players="players"
+      :finished="finished"
+      :correctAnswer="this.question.a"
+      :isHost="$store.state.userId == host.id"
+      @move-on="moveOn"
+    />
   </div>
 </template>
 
@@ -42,13 +59,14 @@ export default {
       code: "",
       players: [],
       answers: [],
-      quizName: '',
+      quizName: "",
       host: null,
       socket: null,
       started: false,
       finished: false,
       number: 0,
       question: null,
+      showLeaderBoard: false,
     };
   },
   computed: {
@@ -77,6 +95,12 @@ export default {
         answer,
       });
     },
+    moveOn(){
+      this.socket.emit('move-on', {
+        token: auth.getToken(),
+        code: this.code
+      });
+    }
   },
   created() {
     if (this.$route.params.code) {
@@ -130,7 +154,7 @@ export default {
      * @param {Array} data The answer
      */
     this.socket.on("player-left", (data) => {
-      if(this.finished) return;
+      if (this.finished) return;
       this.players = data;
     });
 
@@ -149,9 +173,17 @@ export default {
      */
     this.socket.on("question", (data) => {
       if (!this.started) this.started = true;
+      if (this.showLeaderBoard) this.showLeaderBoard = false;
       this.number = data.number;
       this.question = data.question;
       this.answers = [];
+    });
+
+    this.socket.on("update-scores", (data) => {
+      this.showLeaderBoard = true;
+      this.players = data
+        .sort((a, b) => b.points - a.points)
+        .filter((p) => p.tag == "player");
     });
 
     /**
