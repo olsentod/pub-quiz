@@ -2,7 +2,7 @@
   <div>
     <v-app-bar app elevation="2">
       <div class="d-flex align-center">
-        <h1 class="yellow--text text--darken-4">DUCK DUCK QUIZ</h1>
+        <h1 class="yellow--text text--darken-4 logo">DUCK DUCK QUIZ</h1>
       </div>
       <v-spacer></v-spacer>
 
@@ -114,3 +114,11 @@ export default {
   },
 };
 </script>
+
+<style>
+@media (max-width: 768px){
+.logo{
+ font-size: 1.25rem; 
+}
+}
+</style>
